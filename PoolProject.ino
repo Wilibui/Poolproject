@@ -15,6 +15,8 @@ int on = LOW;
 int off = HIGH;
 int daySinceStart = 0;
 
+//this code only rus ones when starting
+//used to setup a few things
 void setup() {
   setupRTC();
 
@@ -30,13 +32,18 @@ void setup() {
   digitalWrite(Lamp_3, off);
 }
 
+//this code keeps running in a loop
 void loop() {
   //Set time var to real time using RTC
   DateTime now = rtc.now();
   
+  //Check if lamp should be on or off
   Check_Lamp_1();
   Check_Lamp_2();
   Check_Lamp_3();
+  
+  //Show information on LCD (Display) for Arduino
+  //This is not crusial, it's just very usefull 
   ShowLCD();
 
   //delay with 1 sec so that Arduino would not fail
@@ -49,7 +56,7 @@ void setupRTC() {
     while (1);
   }
 
-  //If connected to pc
+  //If connected to pc adjust time to real time
   if (Serial) {
     rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
   }
